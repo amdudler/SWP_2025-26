@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taschenrechner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 text-white">
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 w-80 text-white">
+    <h1 class="text-center text-2xl font-bold mb-4">Calculator</h1>
+
+    <div id="display" class="bg-black/30 rounded-lg p-4 mb-4 text-right text-3xl font-mono h-16 overflow-x-auto">0</div>
+
+    <div class="grid grid-cols-4 gap-3">
+
+      <button class="btn" onclick="clearDisplay()">C</button>
+      <button class="btn" onclick="backspace()">⌫</button>
+      <button class="btn" onclick="append('%')">%</button>
+      <button class="btn bg-purple-500/60 hover:bg-purple-500" onclick="append('/')">÷</button>
+
+      <button class="btn" onclick="append('7')">7</button>
+      <button class="btn" onclick="append('8')">8</button>
+      <button class="btn" onclick="append('9')">9</button>
+      <button class="btn bg-purple-500/60 hover:bg-purple-500" onclick="append('*')">×</button>
+
+      <button class="btn" onclick="append('4')">4</button>
+      <button class="btn" onclick="append('5')">5</button>
+      <button class="btn" onclick="append('6')">6</button>
+      <button class="btn bg-purple-500/60 hover:bg-purple-500" onclick="append('-')">−</button>
+
+      <button class="btn" onclick="append('1')">1</button>
+      <button class="btn" onclick="append('2')">2</button>
+      <button class="btn" onclick="append('3')">3</button>
+      <button class="btn bg-purple-500/60 hover:bg-purple-500" onclick="append('+')">+</button>
+
+      <button class="btn col-span-2" onclick="append('0')">0</button>
+      <button class="btn" onclick="append('.')">.</button>
+      <button class="btn bg-green-500 hover:bg-green-600" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <img id="specialImage" src="" alt="Überraschung!" class="hidden mt-6 w-60 rounded-2xl shadow-xl transition-all duration-500">
+
+  <script>
+    const display = document.getElementById('display');
+    const specialImage = document.getElementById('specialImage');
+
+    const surpriseImageURL = "https://tse2.mm.bing.net/th/id/OIP.Zldb8zYJJQuDKuCcitc1QwHaEK?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3";
+
+    function append(value) {
+      if (display.textContent === '0') display.textContent = '';
+      display.textContent += value;
+      specialImage.classList.add("hidden");
+    }
+
+    function clearDisplay() {
+      display.textContent = '0';
+      specialImage.classList.add("hidden");
+    }
+
+    function backspace() {
+      display.textContent = display.textContent.slice(0, -1) || '0';
+      specialImage.classList.add("hidden");
+    }
+
+    function calculate() {
+      try {
+        const expr = display.textContent
+          .replace('÷', '/')
+          .replace('×', '*');
+
+        const result = eval(expr);
+
+        display.textContent = result;
+
+        if (result === 67) {
+          showSpecialImage();
+        }
+
+      } catch {
+        display.textContent = 'Fehler';
+      }
+    }
+
+    function showSpecialImage() {
+      specialImage.src = surpriseImageURL;
+      specialImage.classList.remove("hidden");
+    }
+  </script>
+
+  <style>
+    .btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: all 0.2s;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      padding: 0.75rem;
+    }
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    .btn:active {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</body>
+</html>
