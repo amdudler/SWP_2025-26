@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Ampel Nord",
+        "cars": 120
+    },
+    {
+        "id": 2,
+        "name": "Ampel Ost",
+        "cars": 85
+    },
+    {
+        "id": 3,
+        "name": "Ampel Süd",
+        "cars": 150
+    },
+    {
+        "id": 4,
+        "name": "Ampel West",
+        "cars": 60
+    }
+]
